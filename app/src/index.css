@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+/* ── Custom Theme ── */
+@theme {
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: #f5f5f5;
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e5e5e5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(0, 0, 0, 0.15);
+  color: #000;
+}
+
+/* ── Glass Card (for hero overlays) ── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+}
+
+/* ── Service Card ── */
+.service-card {
+  background: #e8e8e8;
+  border-radius: 24px;
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* ── About Card ── */
+.about-card {
+  background: #e8e8e8;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Mission/Vision Card ── */
+.mv-card {
+  background: #f0f0f0;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+  padding-bottom: 32px;
+}
+
+.mv-card:hover {
+  transform: translateY(-4px);
+}
+
+/* ── Pill Button ── */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: transparent;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pill-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.pill-btn-light {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.pill-btn-light:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Navbar Pill ── */
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 32px;
+  padding: 14px 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-pill-solid {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+}
+
+/* ── Contact Dark Card ── */
+.contact-dark-card {
+  background: #111;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Small Caps Effect ── */
+.small-caps {
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
