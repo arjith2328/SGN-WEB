@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 /* ── Custom Theme ── */
+/* Tailwind CSS v4 theme block */
 @theme {
   --font-heading: "Playfair Display", serif;
   --font-body: "Inter", sans-serif;
