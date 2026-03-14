@@ -328,7 +328,7 @@ function Contact() {
                         </a>
 
                         {/* YouTube */}
-                        <a href="#" className="hover:opacity-80 transition-opacity">
+                        <a href="https://www.youtube.com/@SGNRoboWorks" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
                             <svg width="55" height="55" viewBox="0 0 256 180">
                                 <path fill="#f00" d="M250.3 28.1a32.2 32.2 0 0 0-22.6-22.7C207.8 0 127.9 0 127.9 0S47.9.2 28 5.6A32.2 32.2 0 0 0 5.4 28.2c-6 35.3-8.3 89.1.2 123a32.2 32.2 0 0 0 22.6 22.7c19.9 5.4 99.9 5.4 99.9 5.4s80 0 99.8-5.4a32.2 32.2 0 0 0 22.7-22.7c6.3-35.3 8.3-89.1-.2-123.1" />
                                 <path fill="#fff" d="m102.4 128.1 66.3-38.4-66.3-38.4z" />
