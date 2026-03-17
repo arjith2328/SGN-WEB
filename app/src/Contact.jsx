@@ -23,7 +23,60 @@ function Contact() {
     const [openFaq, setOpenFaq] = useState(null);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+
+    // Form State
+    const [formData, setFormData] = useState({
+        fullName: '',
+        email: '',
+        serviceInterest: '',
+        message: ''
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
+
     const heroRef = useRef(null);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitStatus({ type: '', message: '' });
+
+        try {
+            const response = await fetch('http://localhost:5000/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setSubmitStatus({ type: 'success', message: 'Message sent successfully!' });
+                setFormData({
+                    fullName: '',
+                    email: '',
+                    serviceInterest: '',
+                    message: ''
+                });
+            } else {
+                setSubmitStatus({ type: 'error', message: data.message || 'Failed to send message.' });
+            }
+        } catch (error) {
+            setSubmitStatus({ type: 'error', message: 'Network error. Please make sure the backend server is running.' });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -216,25 +269,65 @@ function Contact() {
                         variants={fadeUp}
                         className="space-y-6"
                     >
-                        <div>
-                            <label className="block text-[14px] font-normal text-[#333333] mb-3">Full name</label>
-                            <input type="text" className="w-full bg-[#e8e8e8] rounded-full px-8 py-5 outline-none transition-all focus:ring-1 focus:ring-black/10 h-[50px]" />
-                        </div>
-                        <div>
-                            <label className="block text-[14px] font-normal text-[#333333] mb-3">E-mail</label>
-                            <input type="email" className="w-full bg-[#e8e8e8] rounded-full px-8 py-5 outline-none transition-all focus:ring-1 focus:ring-black/10 h-[50px]" />
-                        </div>
-                        <div>
-                            <label className="block text-[14px] font-normal text-[#333333] mb-3">Service Interested in</label>
-                            <input type="text" className="w-full bg-[#e8e8e8] rounded-full px-8 py-5 outline-none transition-all focus:ring-1 focus:ring-black/10 h-[50px]" />
-                        </div>
-                        <div>
-                            <label className="block text-[14px] font-normal text-[#333333] mb-3">Message</label>
-                            <textarea rows="5" className="w-full bg-[#e8e8e8] rounded-[32px] px-8 py-6 outline-none transition-all focus:ring-1 focus:ring-black/10 resize-none h-[100px]"></textarea>
-                        </div>
-                        <button className="w-full bg-black text-white rounded-full py-4  tracking-widest uppercase hover:bg-gray-900 transition-colors">
-                            Send Message
-                        </button>
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div>
+                                <label className="block text-[14px] font-normal text-[#333333] mb-3">Full name</label>
+                                <input
+                                    type="text"
+                                    name="fullName"
+                                    value={formData.fullName}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="w-full bg-[#e8e8e8] rounded-full px-8 py-5 outline-none transition-all focus:ring-1 focus:ring-black/10 h-[50px]"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-[14px] font-normal text-[#333333] mb-3">E-mail</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="w-full bg-[#e8e8e8] rounded-full px-8 py-5 outline-none transition-all focus:ring-1 focus:ring-black/10 h-[50px]"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-[14px] font-normal text-[#333333] mb-3">Service Interested in</label>
+                                <input
+                                    type="text"
+                                    name="serviceInterest"
+                                    value={formData.serviceInterest}
+                                    onChange={handleInputChange}
+                                    className="w-full bg-[#e8e8e8] rounded-full px-8 py-5 outline-none transition-all focus:ring-1 focus:ring-black/10 h-[50px]"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-[14px] font-normal text-[#333333] mb-3">Message</label>
+                                <textarea
+                                    rows="5"
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="w-full bg-[#e8e8e8] rounded-[32px] px-8 py-6 outline-none transition-all focus:ring-1 focus:ring-black/10 resize-none h-[100px]"
+                                ></textarea>
+                            </div>
+
+                            {submitStatus.message && (
+                                <div className={`px-4 py-3 rounded-xl text-sm font-medium ${submitStatus.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                                    {submitStatus.message}
+                                </div>
+                            )}
+
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className={`w-full text-white rounded-full py-4 tracking-widest uppercase transition-colors ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-black hover:bg-gray-900'}`}
+                            >
+                                {isSubmitting ? 'Sending...' : 'Send Message'}
+                            </button>
+                        </form>
                     </motion.div>
                 </div>
             </section>
